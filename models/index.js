@@ -1,11 +1,12 @@
-const { Sequalize, DataTypes } = require('sequalize')
+const { Sequelize, DataTypes } = require('sequelize');
+const path = require('path');
 
-const sequalize = new Sequalize({
+const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './database.sqlite'
-})
+    storage: path.join(__dirname, '..', 'database.sqlite')
+});
 
-const Trip = sequalize.define('Trip', {
+const Trip = sequelize.define('Trip', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -13,27 +14,27 @@ const Trip = sequalize.define('Trip', {
     },
     idNumber: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     },
     gender: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     },
     customerType: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     },
     startTime: {
-        type: DataTypes.Date,
-        allowNull: false,
+        type: DataTypes.DATE,
+        allowNull: false
     },
     endTime: {
-        type: DataTypes.Date,
-        allowNull: false,
+        type: DataTypes.DATE,
+        allowNull: false
     },
     duration: {
         type: DataTypes.FLOAT,
@@ -47,7 +48,6 @@ const Trip = sequalize.define('Trip', {
         type: DataTypes.STRING,
         allowNull: false
     }
-
 });
 
-module.exports = { sequalize, Trip };
+module.exports = { sequelize, Trip };
