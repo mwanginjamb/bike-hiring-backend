@@ -1,0 +1,26 @@
+{
+  "name": "bike-hiring-backend",
+  "version": "1.0.0",
+  "description": "The backend for bike hiring app",
+  "main": "index.js",
+  "scripts": {
+    "local": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "mwanginjamb",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "main"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
