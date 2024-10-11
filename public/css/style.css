@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    padding: 1.8em;
+    height: 100vh;
+}
+
+h1,
+h2 {
+    color: #333;
+    text-align: center;
+}
+
+.kyc-form {
+    background-color: aliceblue;
+    padding: 1.2em 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    margin-bottom: 1.2em;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 37.5em;
+}
+
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.field {
+    flex: 1;
+    margin-right: 0.8em;
+}
+
+.field:last-child {
+    margin-right: 0;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 0.4em;
+    width: 100%;
+}
+
+input,
+select {
+    margin-bottom: 0.8em;
+    padding: 0.8em 2em;
+    width: 100%;
+}
+
+button {
+    padding: 0.8em 1.4em;
+    background-color: #24a656;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #05ae46;
+}
+
+.trips {
+    display: flex;
+    justify-content: space-between;
+}
+
+.active-trips,
+.completed-trips {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    max-width: 98%;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 0.5em 1em;
+    text-align: center
+}
+
+th,
+thead :first-child {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.time-counter {
+    font-weight: bold;
+}
+
+h2.header {
+    padding: 0.3em 0.4em;
+    color: #fff;
+    width: 100%;
+    max-width: 98%;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+.completed {
+    background-color: #c55536;
+}

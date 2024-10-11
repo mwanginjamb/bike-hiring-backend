@@ -47,6 +47,10 @@ const Trip = sequelize.define('Trip', {
     tripStatus: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    synced: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
     }
 });
 

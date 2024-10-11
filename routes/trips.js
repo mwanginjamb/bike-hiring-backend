@@ -7,6 +7,8 @@ const router = express.Router();
 router.post('/sync', async (req, res) => {
     try {
         const trips = req.body;
+        console.log(`Trips Sync  Data ....`)
+        console.log(trips)
         const createdTrips = await Promise.all(
             trips.map(trip => Trip.create(trip))
         );
@@ -19,7 +21,9 @@ router.post('/sync', async (req, res) => {
 
 router.get('/trips', async (req, res) => {
     try {
-        const trips = await Trip.findAll();
+        const trips = await Trip.findAll({
+            attributes: ['id', 'idNumber', 'name', 'gender', 'customerType', 'startTime', 'endTime', 'duration', 'cost']
+        });
         res.json(trips);
     } catch (error) {
         console.error('Error fetching trips:', error);

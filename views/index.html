@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikes Hiring Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <h1>Bike Hire Manager</h1>
+
+    <h2>KYC FORM</h2>
+    <!-- kyc form -->
+    <section class="kyc-form">
+
+        <form id="customerForm">
+            <!-- fields row 1 -->
+            <div class="form-group">
+                <div class="field">
+                    <label for="name">Full Names</label>
+                    <input type="text" id="name" placeholder="Customer Full Names" required />
+                </div>
+                <div class="field">
+                    <label for="idNumber">Identity</label>
+                    <input type="text" id="idNumber" placeholder="Customer ID No." required />
+                </div>
+            </div>
+            <!-- fields row 2 -->
+
+            <div class="form-group">
+                <div class="field">
+                    <label for="gender">Gender</label>
+                    <select id="gender">
+                        <option value="select">Select ...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="customerType">Customer Type</label>
+                    <select id="customerType">
+                        <option value="select">Select ...</option>
+                        <option value="adult" selected>Adult</option>
+                        <option value="child">Child</option>
+                    </select>
+                </div>
+
+            </div>
+            </div>
+
+            <!-- Submit Button -->
+
+            <button type="button" id="startTrip">Start Trip</button>
+
+        </form>
+
+    </section>
+
+
+    <section class="trips">
+
+        <!-- active trips -->
+        <div class="active-trips">
+            <h2 class="header active">Active Trips</h2>
+            <table id="activeTrips">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Trip Type</td>
+                        <td>Start Time</td>
+                        <td>Duration</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- completed trips -->
+
+        <div class="completed-trips">
+            <h2 class="header completed">Completed Trips</h2>
+            <table id="completedTrips">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <!-- <td>Trip Type</td> -->
+                        <td>Start Time</td>
+                        <td>End Time</td>
+                        <td>Duration</td>
+                        <td>Cost</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+    <!-- Output section -->
+
+    <script src="/js/utility.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+
+</html>
