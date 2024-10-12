@@ -1,6 +1,6 @@
 const STORAGE_KEY = 'BIKE_HIRE'
 const API_URL = 'http://localhost:3300/api/sync'
-SYNC_INTERVAL = 60 * 1000 * 0.5
+SYNC_INTERVAL = 60 * 1000 * 3
 
 const prices = {
     adult: 100,

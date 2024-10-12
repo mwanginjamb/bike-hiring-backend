@@ -10,14 +10,11 @@ function getHistoricalTrips() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(`data from server ....`);
-            console.log(data)
             updateHistoryTable(data)
         })
 }
 
 function updateHistoryTable(tripData) {
-    console.log(`history data is updating ....`)
     const tbody = document.querySelector('#history tbody')
     tbody.innerHTML = tripData
         .map(trip => `
