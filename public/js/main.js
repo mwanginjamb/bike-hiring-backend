@@ -12,11 +12,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // active trips
 
     let trips = [];
+    let csrfToken;
 
     // Add an a click event listener to the form submit button
     document.getElementById('startTrip').addEventListener('click', startTrip)
     loadFromLocalStorage()
     setInterval(syncToBackend, SYNC_INTERVAL);
+    // Fetch CSRF token
+    fetch('/auth/csrf-token')
+        .then(response => response.json())
+        .then(data => {
+            csrfToken = data.csrfToken;
+        });
+
+    // Handler for ending trips
+
+    document.querySelectorAll('[id^="end-trip-btn-"]').forEach((button) => {
+        // Add an event listener for each button
+        button.addEventListener('click', function () {
+            const tripId = this.dataset.tripId
+            endTrip(tripId)
+        })
+    })
 
 
     // startTrip
@@ -77,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${trip.customerType}</td>
                 <td>${formatDate(trip.startTime)}</td>
                 <td class="time-counter" id="counter-${trip.id}"></td>
-                <td><button onclick="endTrip(${trip.id})">End Trip</button></td>
+                <td><button id="end-trip-btn-${trip.id}" data-trip-id="${trip.id}">End Trip</button></td>
             </tr>
             `).join('')
 
@@ -100,16 +117,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // endTrip
 
     function endTrip(tripId) {
-        const tripIndex = trips.findIndex(trip => trip.id === tripId);
+        console.log(`Attempting to end trip..`)
+        const tripIndex = trips.findIndex(trip => trip.id === +tripId);
         if (tripIndex === -1) return
-
         const trip = trips[tripIndex]
         trip.endTime = new Date()
         const duration = moment.duration(moment(trip.endTime).diff(moment(trip.startTime)))
         trip.duration = duration.asHours()
         trip.cost = trip.duration * prices[trip.customerType]
         trip.tripStatus = 'completed'
-
 
         updateTripInLocalStorage(trip)
         updateActiveTripsTable();
@@ -129,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${formatDate(trip.startTime)}</td>
                 <td>${formatDate(trip.endTime)}</td>
                 <td>${formatDuration(trip.duration)}</td>
-                <td>${trip.cost.toFixed(2)}</td>
+                <td>Ksh. ${trip.cost.toFixed(2)}</td>
                 
             </tr>
             `).join('')
@@ -185,7 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(API_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': csrfToken
             },
             body: JSON.stringify(unsynced)
         })
@@ -203,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
             })
             .catch(error => {
-                console.log(`Error syncing to backend: ${data} `, error)
+                console.log(`Error syncing to backend:  `, error)
             })
     }
 
