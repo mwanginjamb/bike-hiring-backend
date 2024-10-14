@@ -31,4 +31,5 @@ router.get('/trips', async (req, res) => {
     }
 });
 
+
 module.exports = router;
