@@ -70,6 +70,14 @@ const User = sequelize.define('User', {
             len: [3, 25]
         }
     },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+            len: [5, 30]
+        }
+    },
     password: {
         type: DataTypes.STRING,
         allowNull: false
@@ -77,6 +85,14 @@ const User = sequelize.define('User', {
     role: {
         type: DataTypes.ENUM('operator', 'admin'),
         allowNull: false
+    },
+    resetToken: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    resetTokenExpiration: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     hooks: {
@@ -98,10 +114,23 @@ User.prototype.validatePassword = function (password) {
     return bcrypt.compare(password, this.password)
 }
 
-// class method to fund user by username
+// class method to find user by username
 
 User.findByUsername = function (username) {
     return User.findOne({ where: { username } })
+}
+
+User.findByEmail = function (email) {
+    return User.findOne({ where: { email } })
+}
+
+User.findByResetToken = function (token) {
+    return User.findOne({
+        where: {
+            resetToken: token,
+            resetTokenExpiration: { [Sequelize.Op.gt]: new Date() }
+        }
+    })
 }
 
 module.exports = { sequelize, Trip, User };

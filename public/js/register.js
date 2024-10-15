@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const passwordConfirm = document.getElementById('passwordConfirm').value;
         const role = document.getElementById('role').value;
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json',
                     'CSRF-Token': csrfToken
                 },
-                body: JSON.stringify({ username, password, passwordConfirm, role })
+                body: JSON.stringify({ username, email, password, passwordConfirm, role })
             });
 
             if (response.ok) {

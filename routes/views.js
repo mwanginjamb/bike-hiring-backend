@@ -24,4 +24,11 @@ router.get('/admin-success', isAuthenticated, checkRole('admin'), (req, res) => 
     res.sendFile(path.join(__dirname, '..', 'views', 'dashboard.html'))
 })
 
+router.get('/request-password-reset', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'views', 'request-password-reset.html'))
+})
+
+router.get('/reset-password/:token', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'views', 'reset-password.html'))
+})
 module.exports = router
