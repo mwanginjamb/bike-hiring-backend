@@ -25,14 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
             csrfToken = data.csrfToken;
         });
 
-    // Handler for ending trips
+    // Handler for ending trips - using event delegation
 
-    document.querySelectorAll('[id^="end-trip-btn-"]').forEach((button) => {
-        // Add an event listener for each button
-        button.addEventListener('click', function () {
-            const tripId = this.dataset.tripId
+    document.getElementById('activeTrips').addEventListener('click', function (event) {
+        const button = event.target
+        if (button.id && button.id.startsWith('end-trip-btn-')) {
+            const tripId = button.dataset.tripId
+            console.log(`trip id is : ${tripId}`);
             endTrip(tripId)
-        })
+        }
     })
 
 
