@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('loginForm');
     const message = document.getElementById('message');
+    const BASE_URL = window.location.origin; // Dynamic origin handling
 
     // Fetch CSRF token
-    fetch('/auth/csrf-token')
+    fetch(`${BASE_URL}/auth/csrf-token`)
         .then(response => response.json())
         .then(data => {
             document.getElementById('csrfToken').value = data.csrfToken;
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const csrfToken = document.getElementById('csrfToken').value;
 
         try {
-            const response = await fetch('/auth/login', {
+            const response = await fetch(`${BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

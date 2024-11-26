@@ -4,9 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('request-password-reset');
     const message = document.getElementById('message');
     const csrfTokenInput = document.getElementById('csrfToken');
+    const BASE_URL = window.location.origin; // Dynamic origin handling
 
     // Fetch CSRF token
-    fetch('/auth/csrf-token')
+    fetch(`${BASE_URL}/auth/csrf-token`)
         .then(response => response.json())
         .then(data => {
             csrfTokenInput.value = data.csrfToken;
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = document.getElementById('email').value;
 
         try {
-            const response = await fetch('/auth/forgot-password', {
+            const response = await fetch(`${BASE_URL}/auth/forgot-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

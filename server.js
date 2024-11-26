@@ -35,6 +35,14 @@ app.use(session({
         sameSite: process.env.NODE_ENV === 'dev' ? 'Lax' : 'none'
     }
 }))
+
+
+app.use((req, res, next) => {
+    res.setHeader('X-Frame-Options', 'DENY'); // Disallow framing
+    res.setHeader('X-XSS-Protection', '1; mode=block'); // Block XSS attacks
+    next();
+});
+
 app.use(
     helmet.contentSecurityPolicy({
         directives: {

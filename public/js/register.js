@@ -1,9 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('registerForm');
     const message = document.getElementById('message');
+    const BASE_URL = window.location.origin; // Dynamic origin handling
+
+
+    // Select all input fields with specific IDs or classes
+    const inputFields = document.querySelectorAll('#username, #email, #password, #role');
+
+    // Add an event listener to each field
+    inputFields.forEach(field => {
+        field.addEventListener('focus', () => {
+            field.value = '';
+        });
+    });
+
 
     // Fetch CSRF token
-    fetch('/auth/csrf-token')
+    fetch(`${BASE_URL}/auth/csrf-token`)
         .then(response => response.json())
         .then(data => {
             document.getElementById('csrfToken').value = data.csrfToken;
@@ -30,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch('/auth/register', {
+            const response = await fetch(`${BASE_URL}/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const { msg, path } = data.errors[0]
                 console.log({ msg, path });
 
-                message.textContent = msg || 'Registration failed';
+                message.textContent = path + ' : ' + msg || 'Registration failed';
             }
         } catch (error) {
             console.table(error);
