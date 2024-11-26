@@ -4,7 +4,7 @@ const { isAuthenticated, checkRole } = require('../middleware/auth')
 
 const router = express.Router()
 
-router.get('/', isAuthenticated, checkRole('operator'), (req, res) => {
+router.get('/', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'index.html'))
 })
 
