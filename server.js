@@ -18,7 +18,16 @@ require('dotenv').config();
 const app = express()
 const PORT = process.env.PORT || 5000
 
-// middleware 
+// middleware
+
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', true);
+    console.log('Trust proxy is enabled for production');
+} else {
+    app.set('trust proxy', false);
+    console.log('Trust proxy is disabled for non-production environments');
+}
+
 app.use(helmet())
 app.use(cors())
 app.use(bodyParser.json())
@@ -103,7 +112,7 @@ app.use((err, req, res, next) => {
         stack: err.stack
     });
 
-    res.status(500).send('System Errors Occurred! Sorry mate.')
+    res.status(500).send('System Errors Occurred! Sorry mate.', err)
 })
 
 process.on('unhandledRejection', (reason, promise) => {

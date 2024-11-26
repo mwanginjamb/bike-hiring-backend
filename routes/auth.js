@@ -32,9 +32,9 @@ router.post('/register', [
         res.redirect('/login');
     } catch (error) {
         if (error.name === 'SequalizeUniqueConstraintError') {
-            res.status(400).send('Username Already Exists')
+            res.status(400).json({ message: 'Username Already Exists' })
         } else {
-            res.status(500).send(error)
+            next(error)
         }
     }
 })
@@ -120,7 +120,7 @@ router.post('/forgot-password', [
         const transporter = mailer.createTransport({
             host: process.env.MAILHOST,
             port: process.env.MAILPORT,
-            secure: false,
+            secure: true,
             auth: {
                 user: process.env.MAILUSER,
                 pass: process.env.MAILPASS
