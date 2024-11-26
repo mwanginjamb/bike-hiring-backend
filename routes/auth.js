@@ -34,8 +34,7 @@ router.post('/register', [
         if (error.name === 'SequalizeUniqueConstraintError') {
             res.status(400).send('Username Already Exists')
         } else {
-            console.error(`Error registering user: ${error}`)
-            res.status(500).send(`Error registering user`)
+            res.status(500).send(error)
         }
     }
 })
