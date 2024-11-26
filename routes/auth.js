@@ -120,7 +120,7 @@ router.post('/forgot-password', [
         // send mail with reset Link
         const transporter = mailer.createTransport({
             host: process.env.MAILHOST,
-            port: 587,
+            port: process.env.MAILPORT,
             secure: false,
             auth: {
                 user: process.env.MAILUSER,

@@ -46,13 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 2000);
             } else {
                 const data = await response.json();
+                console.table(data);
                 const { msg, path } = data.errors[0]
                 console.log({ msg, path });
 
                 message.textContent = msg || 'Registration failed';
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.table(error);
             message.textContent = 'An error occurred. Please try again.';
         }
     });
