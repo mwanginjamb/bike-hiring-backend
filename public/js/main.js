@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+    const BASE_URL = window.location.origin; // Dynamic origin handling
     const STORAGE_KEY = 'BIKE_HIRE'
-    const API_URL = 'http://localhost:3300/api/sync'
+    const API_URL = `${BASE_URL}/api/sync`
     SYNC_INTERVAL = 60 * 1000 * 3
 
     const prices = {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFromLocalStorage()
     setInterval(syncToBackend, SYNC_INTERVAL);
     // Fetch CSRF token
-    fetch('/auth/csrf-token')
+    fetch(`${BASE_URL}/auth/csrf-token`)
         .then(response => response.json())
         .then(data => {
             csrfToken = data.csrfToken;
