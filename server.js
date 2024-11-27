@@ -58,6 +58,7 @@ app.use(
             defaultSrc: ["'self'"], // Allow resources from your domain only by default
             scriptSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // Allow scripts from Cloudflare
             styleSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // Allow styles from Cloudflare
+            styleSrcElem: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // External styles
             fontSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // Allow fonts from Cloudflare
             imgSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'data:', 'https://cdn.jsdelivr.net'], // Allow images, including inline
             connectSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // Allow API calls (e.g., AJAX)
