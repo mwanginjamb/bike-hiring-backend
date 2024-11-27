@@ -60,10 +60,11 @@ app.use(
             styleSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // Allow styles from Cloudflare
             fontSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // Allow fonts from Cloudflare
             imgSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'data:', 'https://cdn.jsdelivr.net'], // Allow images, including inline
-            connectSrc: ["'self'", 'https://cdnjs.cloudflare.com'], // Allow API calls (e.g., AJAX)
+            connectSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // Allow API calls (e.g., AJAX)
             frameSrc: ["'self'"], // Restrict iframes (modify if embedding Cloudflare elements)
             objectSrc: ["'none'"], // Prevent <object>, <embed>, <applet>
             upgradeInsecureRequests: [], // Ensure all requests are HTTPS
+            reportUri: "/csp-violation-report-endpoint",
         },
     })
 );
@@ -81,6 +82,13 @@ const csrfProtection = csrf({
 
 })
 app.use(csrfProtection)
+
+// log CSP violations
+
+app.post('/csp-violation-report-endpoint', (req, res) => {
+    console.log('CSP Violation:', req.body || 'No data');
+    res.status(204).end();
+});
 
 // serve static files
 app.use(express.static(path.join(__dirname, 'public')))
