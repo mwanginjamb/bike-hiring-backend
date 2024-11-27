@@ -1,11 +1,21 @@
-const FETCH_API_URL = 'http://localhost:3300/api/trips'
+const BASE_URL = window.location.origin; // Dynamic origin handling
+const FETCH_API_URL = `${BASE_URL}/api/trips`
+let csrfToken = null
+
+// Fetch CSRF token
+fetch(`${BASE_URL}/auth/csrf-token`)
+    .then(response => response.json())
+    .then(data => {
+        csrfToken = data.csrfToken;
+    });
 
 getHistoricalTrips();
 function getHistoricalTrips() {
     fetch(FETCH_API_URL, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'CSRF-Token': csrfToken
         }
     })
         .then(response => response.json())
