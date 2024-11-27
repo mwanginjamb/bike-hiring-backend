@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${trip.customerType}</td>
                 <td>${formatDate(trip.startTime)}</td>
                 <td class="time-counter" id="counter-${trip.id}"></td>
-                <td><button id="end-trip-btn-${trip.id}" data-trip-id="${trip.id}">End Trip</button></td>
+                <td><button class="btn btn-sm btn-danger" id="end-trip-btn-${trip.id}" data-trip-id="${trip.id}">End Trip</button></td>
             </tr>
             `).join('')
 
@@ -224,6 +224,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(`Error syncing to backend:  `, error)
             })
     }
+
+    logoutLink = document.querySelector('#logout');
+    logoutLink.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch(`${BASE_URL}/auth/logout`);
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Logout successful:', data);
+                // Redirect only after successful logout
+                window.location.href = '/';
+            } else {
+                console.error('Logout failed with status:', response.status);
+            }
+        } catch (error) {
+            console.error('Network error during logout:', error);
+        }
+    });
 
     // formatDate
     function formatDate(dateString) {

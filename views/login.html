@@ -4,35 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Bike Hire Manager - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <h1>Login</h1>
-    <section class="form">
-        <div class="box">
+    <div class="wrapper">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <img src="./logo 200.JPG" alt="Logo" class="logo">
+                <h3 class="text display-6 my-3 ">Bike Hire Manager</h3>
 
-            <form id="loginForm">
-                <input type="text" id="username" name="username" placeholder="Username" required>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-                <input type="hidden" id="csrfToken" name="_csrf">
-                <button type="submit">Login</button>
-            </form>
-            <p id="message"></p>
-
-            <div class="action">
-                <div class="register">
-                    <a href="/register">Register Here</a>
-                </div>
-                <div class="register">
-                    <a href="/request-password-reset">Reset Password</a>
-                </div>
+                <p class="text text-info" id="message"></p>
             </div>
-        </div>
-    </section>
+            <form id="loginForm">
+                <div class="position-relative mb-3">
+                    <i class="bi bi-person icon-addon"></i>
+                    <input type="text" id="username" name="username" class="form-control form-control-with-icon"
+                        placeholder="Username" required>
+                </div>
 
+                <div class="position-relative mb-3">
+                    <i class="bi bi-lock icon-addon"></i>
+                    <input type="password" id="password" name="password" class="form-control form-control-with-icon"
+                        placeholder="Password" required>
+                </div>
+                <input type="hidden" id="csrfToken" name="_csrf">
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="/request-password-reset" class="text-decoration-none me-3">Reset Password</a>
+                    <a href="/request-password-reset" class="text-decoration-none">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Gumzo E-Board Systems. All Rights Reserved.</p>
+            <small>Bike Hire Manager - Powered by Gumzo E-Board Systems</small>
+        </div>
+    </footer>
     <script src="/js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

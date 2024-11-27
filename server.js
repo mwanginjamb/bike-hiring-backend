@@ -56,10 +56,10 @@ app.use(
     helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ["'self'"], // Allow resources from your domain only by default
-            scriptSrc: ["'self'", 'https://cdnjs.cloudflare.com'], // Allow scripts from Cloudflare
-            styleSrc: ["'self'", 'https://cdnjs.cloudflare.com'], // Allow styles from Cloudflare
-            fontSrc: ["'self'", 'https://cdnjs.cloudflare.com'], // Allow fonts from Cloudflare
-            imgSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'data:'], // Allow images, including inline
+            scriptSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // Allow scripts from Cloudflare
+            styleSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // Allow styles from Cloudflare
+            fontSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'], // Allow fonts from Cloudflare
+            imgSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'data:', 'https://cdn.jsdelivr.net'], // Allow images, including inline
             connectSrc: ["'self'", 'https://cdnjs.cloudflare.com'], // Allow API calls (e.g., AJAX)
             frameSrc: ["'self'"], // Restrict iframes (modify if embedding Cloudflare elements)
             objectSrc: ["'none'"], // Prevent <object>, <embed>, <applet>
