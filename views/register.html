@@ -4,40 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Bike Hire Manager - Signup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <h1>Register</h1>
-
-    <section class="form">
-        <div class="box">
-
-            <form id="registerForm">
-                <input type="text" id="username" name="username" placeholder="Username" autocomplete="off" required>
-                <input type="email" id="email" name="email" placeholder="E-mail Address" autocomplete="off" required>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-                <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password"
-                    required>
-                <select id="role" name="role" required>
-                    <option value="operator">Operator</option>
-                    <option value="admin">Admin</option>
-                </select>
-                <input type="hidden" id="csrfToken" name="_csrf">
-                <button type="submit">Register</button>
-            </form>
-            <p id="message"></p>
-
-            <div class="action">
-                <div class="register">
-                    Have an account? <a href="/login">Login Here</a>
-                </div>
+    <div class="wrapper">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <img src="./logo 200.JPG" alt="Logo" class="logo">
+                <h3 class="text display-6 my-3 ">Register an Account</h3>
+                <p class="text text-info" id="message"></p>
             </div>
+            <form id="registerForm">
+                <div class="position-relative mb-3">
+                    <i class="bi bi-person icon-addon"></i>
+                    <input type="text" class="form-control form-control-with-icon" id="username" name="username"
+                        placeholder="Username" autocomplete="off" required>
+                </div>
+                <div class="position-relative mb-3">
+                    <i class="bi bi-envelope icon-addon"></i>
+                    <input type="email" class="form-control form-control-with-icon" id="email" name="email"
+                        placeholder="E-mail Address" autocomplete="off" required required>
+                </div>
+                <div class="position-relative mb-3">
+                    <i class="bi bi-lock icon-addon"></i>
+                    <input type="password" class="form-control form-control-with-icon" id="password" name="password"
+                        placeholder="Password" required>
+                </div>
+                <div class="position-relative mb-3">
+                    <i class="bi bi-lock icon-addon"></i>
+                    <input type="password" class="form-control form-control-with-icon" id="passwordConfirm"
+                        name="passwordConfirm" placeholder="Confirm Password" required>
+                </div>
+                <div class="position-relative mb-3">
+                    <i class="bi bi-person-circle icon-addon"></i>
+                    <select id="role" name="role" class="form-control form-control-with-icon" required>
+                        <option value="_blank">Select Role....</option>
+                        <option value="operator">Operator</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <input type="hidden" id="csrfToken" name="_csrf">
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+                <div class="text-center mt-3">
+                    Have an account?<a href="/login" class="mx-2 text-decoration-none">Login Here</a>
+                </div>
+            </form>
         </div>
-    </section>
+    </div>
 
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Gumzo E-Board Systems. All Rights Reserved.</p>
+            <small>Bike Hire Manager - Powered by Gumzo E-Board Systems</small>
+        </div>
+    </footer>
     <script src="/js/register.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
