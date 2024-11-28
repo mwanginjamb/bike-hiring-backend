@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 message.textContent = 'Registration successful! Redirecting to login...';
                 setTimeout(() => {
                     window.location.href = '/login';
-                }, 2000);
+                }, 1500);
             } else {
                 const data = await response.json();
                 console.table(data);
