@@ -3,10 +3,28 @@ const bcrypt = require('bcrypt')
 const path = require('path')
 require('dotenv').config()
 
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: path.join(__dirname, '..', process.env.DB_PATH)
-});
+
+const sequelize = new Sequelize(
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
+    {
+        host: process.env.DB_HOST || 'localhost',
+        dialect: 'mysql',
+        port: process.env.DB_PORT || 3306,
+        dialectOptions: {
+            // Optional: Add any MariaDB-specific connection options
+            // For example, SSL settings, connection timeout, etc.
+            // ssl: { ... }
+        },
+        pool: {
+            max: 5, // Maximum number of connection in pool
+            min: 0, // Minimum number of connection in pool
+            acquire: 30000, // Maximum time to acquire a connection
+            idle: 10000 // Connection can be idle before being released
+        }
+    }
+);
 
 const Trip = sequelize.define('Trip', {
     id: {

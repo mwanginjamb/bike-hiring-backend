@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node  server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "migrate": "sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo",
+    "migrate:undo:all": "sequelize db:migrate:undo:all"
   },
   "keywords": [],
   "author": "mwanginjamb",
@@ -27,8 +30,12 @@
     "express-session": "^1.18.1",
     "express-validator": "^7.2.0",
     "helmet": "^8.0.0",
+    "mariadb": "^3.4.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.11.5",
     "nodemailer": "^6.9.15",
     "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
     "sqlite3": "^5.1.7",
     "winston": "^3.15.0",
     "winston-daily-rotate-file": "^5.0.0"

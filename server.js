@@ -134,9 +134,14 @@ process.on('uncaughtException', (err) => {
     process.exit(1); // Exit the process to prevent any unstable state
 });
 
-sequelize.sync().then(() => {
-    console.log('DB Synched.')
-    app.listen(PORT, () => {
-        console.log(`Server is running on Port ${PORT}`)
+sequelize.authenticate()
+    .then(() => {
+        console.log('Database connection established.');
+        app.listen(PORT, () => {
+            console.log(`Server is running on Port ${PORT}`)
+        });
     })
-});
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+        process.exit(1);
+    });
