@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('There was a network error, try later .')
+                    throw new Error('There was a network error, try later . ' + Object.keys(response))
                 }
                 return response.json()
             })

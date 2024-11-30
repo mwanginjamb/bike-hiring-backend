@@ -1,6 +1,6 @@
-const { Sequelize, DataTypes } = require('sequelize')
-const bcrypt = require('bcrypt')
-const path = require('path')
+const { Sequelize } = require('sequelize')
+const TripModel = require('./Trip')
+const UserModel = require('./User')
 require('dotenv').config()
 
 
@@ -26,129 +26,25 @@ const sequelize = new Sequelize(
     }
 );
 
-const Trip = sequelize.define('Trip', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    idNumber: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    gender: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    customerType: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    startTime: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    endTime: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    duration: {
-        type: DataTypes.FLOAT,
-        allowNull: false
-    },
-    cost: {
-        type: DataTypes.FLOAT,
-        allowNull: false
-    },
-    tripStatus: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    synced: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
-    }
-});
 
-const User = sequelize.define('User', {
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            len: [3, 25]
-        }
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            len: [5, 30]
-        }
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    role: {
-        type: DataTypes.ENUM('operator', 'admin'),
-        allowNull: false
-    },
-    resetToken: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    resetTokenExpiration: {
-        type: DataTypes.DATE,
-        allowNull: true
-    }
-}, {
-    hooks: {
-        beforeCreate: async (user) => {
-            if (user.password) {
-                const salt = await bcrypt.genSalt(10)
-                user.password = await bcrypt.hash(user.password, salt)
-            }
-        },
-        beforeUpdate: async (user) => {
-            const salt = await bcrypt.genSalt(10)
-            user.password = await bcrypt.hash(user.password, salt)
-        }
-    }
-})
-
-// Instance method to validate password
-User.prototype.validatePassword = function (password) {
-    return bcrypt.compare(password, this.password)
+const models = {
+    Trip: TripModel(sequelize),
+    User: UserModel(sequelize)
 }
 
-// class method to find user by username
-
-User.findByUsername = function (username) {
-    return User.findOne({ where: { username } })
-}
-
-User.findByEmail = function (email) {
-    return User.findOne({ where: { email } })
-}
-
-User.findByResetToken = function (token) {
-    return User.findOne({
-        where: {
-            resetToken: token,
-            resetTokenExpiration: { [Sequelize.Op.gt]: new Date() }
+function configureBlameable(sequelize) {
+    // Add  a global hook to all models
+    sequelize.addHook('beforeCreate', (instance, options) => {
+        if (options.req && options.req.currentUser) {
+            instance.createdBy = options.req.currentUser.id
         }
-    })
+    });
+
+    sequelize.addHook('beforeUpdate', (instance, options) => {
+        if (options.req && options.req.currentUser) {
+            instance.updatedBy = options.req.currentUser.id
+        }
+    });
 }
 
-module.exports = { sequelize, Trip, User };
+module.exports = { sequelize, ...models, configureBlameable };

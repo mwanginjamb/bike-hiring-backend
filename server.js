@@ -6,12 +6,13 @@ const helmet = require('helmet')
 const csrf = require('csurf')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
-const { sequelize } = require('./models/index')
+const { sequelize, configureBlameable } = require('./models/index')
 const logger = require('./utilities/logger')
 
 const tripRoutes = require("./routes/trips")
 const viewRoutes = require("./routes/views")
 const authRoutes = require("./routes/auth")
+const { attachUserToRequest } = require('./middleware/auth');
 
 require('dotenv').config();
 
@@ -28,6 +29,8 @@ if (process.env.NODE_ENV === 'production') {
     console.log('Trust proxy is disabled for non-production environments');
 }
 
+app.use(attachUserToRequest)
+configureBlameable(sequelize)
 app.use(helmet())
 app.use(cors())
 app.use(bodyParser.json())

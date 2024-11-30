@@ -1,20 +1,45 @@
 const express = require('express')
+const { isAuthenticated } = require('../middleware/auth')
+const logger = require('../utilities/logger')
 const { Trip } = require('../models')
 
 const router = express.Router();
 
 
-router.post('/sync', async (req, res) => {
+router.post('/sync', isAuthenticated, async (req, res) => {
     try {
+
+        const user = req.currentUser;
+        logger.info(`Trip sync initiated ...`, {
+            method: req.method,
+            route: req.originalUrl,
+            userId: user.id,
+            username: user.username
+        })
+
+
         const trips = req.body;
-        console.log(`Trips Sync  Data ....`)
-        console.log(trips)
         const createdTrips = await Promise.all(
-            trips.map(trip => Trip.create(trip))
+            trips.map(({ id, ...tripWithoutId }) => Trip.create(tripWithoutId, { req }))
         );
+
+        // Log success
+
+        logger.info(`Trip successfully synced by user `, {
+            userID: user.id,
+            username: user.username,
+            syncedTripCount: createdTrips.length
+        })
+
         res.status(201).json({ message: 'Trips synced successfully', trips: createdTrips });
     } catch (error) {
-        console.error('Error syncing trips:', error);
+        // Log error details with the user context
+        logger.error(`Error syncing trips`, {
+            userId: req.currentUser?.user?.id || 'Unknown',
+            username: req.currentUser?.user?.username || 'Unknown',
+            error: error.message,
+            stack: error.stack,
+        });
         res.status(500).json({ message: 'Error syncing trips', error: error.message });
     }
 });

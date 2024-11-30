@@ -1,7 +1,5 @@
 'use strict';
 
-const { DataTypes } = require("sequelize");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Trips', {
@@ -20,7 +18,7 @@ module.exports = {
         allowNull: false
       },
       gender: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.ENUM('Male', 'Female', 'Other'),
         allowNull: false
       },
       customerType: {
@@ -63,7 +61,7 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
       },
       createdBy: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: true,
         references: {
           model: 'Users',
@@ -71,7 +69,7 @@ module.exports = {
         }
       },
       updatedBy: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: true,
         references: {
           model: 'Users',

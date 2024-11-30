@@ -1,7 +1,6 @@
 const isAuthenticated = (req, res, next) => {
     if (req.session && req.session.user) {
-        // Attach user to request for use in subsequent middleware
-        req.user = req.session.user
+        req.currentUser = req.session.user
         next()
     } else {
         res.redirect('/login')
@@ -19,4 +18,15 @@ const checkRole = (role) => {
     }
 }
 
-module.exports = { isAuthenticated, checkRole }
+const attachUserToRequest = (req, res, next) => {
+    if (req.session && req.session.user) {
+        req.currentUser = req.session.user
+    } else {
+        req.currentUser = null
+    }
+    next()
+}
+
+
+
+module.exports = { isAuthenticated, checkRole, attachUserToRequest }
